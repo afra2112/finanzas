@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 import com.app.finanzas.service.CategoryService;
 import com.app.finanzas.repository.CategoryRepository;
 import com.app.finanzas.dto.CategoryDTO;
-import com.app.finanzas.entity.Categoy;
+import com.app.finanzas.entity.Category;
 
 @Service
 public class CategoryImplement implements CategoryService {
@@ -22,25 +22,25 @@ public class CategoryImplement implements CategoryService {
 
     @Override
     public CategoryDTO save(CategoryDTO dto) {
-        Categoy entidadCategoria = modelMapper.map(dto, Categoy.class);
-        Categoy entidadGuardada = repository.save(entidadCategoria);
+        Category entidadCategoria = modelMapper.map(dto, Category.class);
+        Category entidadGuardada = repository.save(entidadCategoria);
         return modelMapper.map(entidadGuardada, CategoryDTO.class);
     }
 
     @Override
     public CategoryDTO update(Long id, CategoryDTO dto) {
-        Categoy entidadCategoria = repository.findById(id)
+        Category entidadCategoria = repository.findById(id)
         .orElseThrow(() -> new RuntimeException("Categoria no encontrado"));
 
         modelMapper.map(dto, entidadCategoria);
 
-        Categoy entidadActualizada = repository.save(entidadCategoria);
+        Category entidadActualizada = repository.save(entidadCategoria);
         return modelMapper.map(entidadActualizada, CategoryDTO.class);
     }
 
     @Override
     public CategoryDTO findById(Long id) {
-        Categoy entidadCategoria = repository.findById(id)
+        Category entidadCategoria = repository.findById(id)
         .orElseThrow(() -> new RuntimeException("Categoria no encontrado"));
         return modelMapper.map(entidadCategoria, CategoryDTO.class);
     }

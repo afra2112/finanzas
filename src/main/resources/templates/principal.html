@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinanceApp - Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#e11d48',
+                        'primary-dark': '#be123c',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50">
+
+    <div th:replace="fragments/navbar :: navbar"></div>
+
+    <div class="ml-64 p-8">
+
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold text-gray-900" th:text="'Bienvenido ' + ${user.name}"></h1>
+            <p class="text-gray-600">Resumen de tus finanzas personales</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-600">Balance Total</p>
+                        <p class="text-2xl font-bold text-gray-900" th:text = "${balance}"></p>
+                    </div>
+                    <div class="p-3 bg-primary/10 rounded-full">
+                        <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-600">Ingresos del Mes</p>
+                        <p class="text-2xl font-bold text-green-600">+$4,250.00</p>
+                    </div>
+                    <div class="p-3 bg-green-100 rounded-full">
+                        <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 11l5-5m0 0l5 5m-5-5v12"></path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-600">Gastos del Mes</p>
+                        <p class="text-2xl font-bold text-red-600">-$2,180.75</p>
+                    </div>
+                    <div class="p-3 bg-red-100 rounded-full">
+                        <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 13l-5 5m0 0l-5-5m5 5V6"></path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+            <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">Progreso de Ahorro</h3>
+                <div class="space-y-4">
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-sm font-medium text-gray-700">Vacaciones 2024</span>
+                            <span class="text-sm text-gray-500">$3,200 / $5,000</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2">
+                            <div class="bg-primary h-2 rounded-full" style="width: 64%"></div>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-1">64% completado</p>
+                    </div>
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-sm font-medium text-gray-700">Fondo de Emergencia</span>
+                            <span class="text-sm text-gray-500">$8,500 / $10,000</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2">
+                            <div class="bg-green-500 h-2 rounded-full" style="width: 85%"></div>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-1">85% completado</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Transactions -->
+            <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-lg font-semibold text-gray-900">Transacciones Recientes</h3>
+                    <a href="transactions.html" class="text-primary text-sm font-medium hover:text-primary-dark">Ver todas</a>
+                </div>
+                <div class="space-y-3">
+                    <div th:each="transaction : ${transactions}">
+                        <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                            <div class="flex items-center">
+
+                                <div th:switch="${transaction.type.name()}">
+                                    <div th:case="'INGRESO'" class="p-2 bg-green-100 rounded-full mr-3">
+                                        <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 11l5-5m0 0l5 5m-5-5v12"></path>
+                                        </svg>
+                                    </div>
+                                    <div th:case="'GASTO'" class="p-2 bg-red-100 rounded-full mr-3">
+                                        <svg class="w-4 h-4 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 13l-5 5m0 0l-5-5m5 5V6"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <p class="text-sm font-medium text-gray-900" th:text="${transaction.description}"></p>
+                                    <p class="text-xs text-gray-500" th:text="${transaction.date}"></p>
+                                </div>
+                            </div>
+                            <span th:classappend="${transaction.type.name() == 'INGRESO'} ? 'text-green-600' : 'text-red-600'" class="text-sm font-semibold" th:text="${transaction.ammount}"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

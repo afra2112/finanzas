@@ -18,6 +18,4 @@ public interface TransactionService {
     boolean existsById(Long id);
 
     long count();
-
-    public List<TransactionDTO> getTransacctionsByUser(Long idUsuario);
 }

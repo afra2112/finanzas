@@ -70,13 +70,4 @@ public class TransactionImplement implements TransactionService {
     public long count() {
         return repository.count();
     }
-
-    @Override
-    public List<TransactionDTO> getTransacctionsByUser(Long idUser) {
-        List<Transaction> transactions = repository.findUserById(idUser);
-
-        return transactions.stream()
-                .map(t -> modelMapper.map(transactions, TransactionDTO.class))
-                .collect(Collectors.toList());
-    }
 }

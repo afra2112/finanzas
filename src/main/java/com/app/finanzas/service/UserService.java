@@ -18,4 +18,6 @@ public interface UserService {
     boolean existsById(Long id);
 
     long count();
+
+    boolean validarLogin(String email, String contrasena);
 }

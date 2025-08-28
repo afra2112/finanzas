@@ -73,4 +73,13 @@ public class UserImplement implements UserService {
     public long count() {
         return repository.count();
     }
+
+    @Override
+    public boolean validarLogin(String email, String contrasena) {
+        User user = repository.findByEmail(email);
+        if(contrasena.equals(user.getPassword())){
+            return true;
+        }
+        return false;
+    }
 }

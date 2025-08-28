@@ -1,6 +1,6 @@
 package com.app.finanzas.entity;
 
-import com.app.finanzas.config.enums.TipoTransaccionEnum;
+import com.app.finanzas.config.enums.TransactionTypeEnum;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
@@ -22,7 +22,7 @@ public class Transaction {
 
     @ManyToOne
     @JoinColumn(name = "idCategory", nullable = false)
-    private Categoy categoy;
+    private Category category;
 
     @Column(name = "type", nullable = false, length = 50)
     private TransactionTypeEnum type;

@@ -1,6 +1,6 @@
 package com.app.finanzas.entity;
 
-import com.app.finanzas.config.enums.RolEnum;
+import com.app.finanzas.config.enums.RoleEnum;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -25,7 +25,4 @@ public class User {
 
     @Column(name = "role", nullable = false)
     private RoleEnum role;
-
-    @Column(name = "balance", nullable = false)
-    private Double balance = 0.0;
 }

@@ -1,7 +1,7 @@
 package com.app.finanzas.dto;
 
 
-import com.app.finanzas.config.enums.EstadoPlanAhorroEnum;
+import com.app.finanzas.config.enums.SavingPlanStatusEnum;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -21,5 +21,5 @@ public class SavingPlanDTO {
 
     private Double currentAmmount;
 
-    private EstadoPlanAhorroEnum savingStatus;
+    private SavingPlanStatusEnum savingStatus;
 }

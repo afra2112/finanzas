@@ -1,6 +1,6 @@
 package com.app.finanzas.dto;
 
-import com.app.finanzas.config.enums.TipoTransaccionEnum;
+import com.app.finanzas.config.enums.TransactionTypeEnum;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -14,7 +14,7 @@ public class TransactionDTO {
 
     private Long idCategory;
 
-    private TipoTransaccionEnum type;
+    private TransactionTypeEnum type;
 
     private Double ammount;
 

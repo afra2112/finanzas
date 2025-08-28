@@ -1,6 +1,6 @@
 package com.app.finanzas.entity;
 
-import com.app.finanzas.config.enums.FrecuenciaInteresEnum;
+import com.app.finanzas.config.enums.InterestFrecuencyEnum;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -18,7 +18,7 @@ public class CapitalizationSettings {
     private SavingPlan savingPlan;
 
     @Column(nullable = false)
-    private FrecuenciaInteresEnum frecuency;
+    private InterestFrecuencyEnum frecuency;
 
     @Column(nullable = false)
     private Double interestRate;

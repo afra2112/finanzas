@@ -1,7 +1,7 @@
 package com.app.finanzas.controller;
 
-import com.app.finanzas.dto.CategoryDTO;
-import com.app.finanzas.service.CategoryService;
+import com.app.finanzas.dto.SavingPlanDTO;
+import com.app.finanzas.service.SavingPlanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-public class CategoryController {
+public class SavingPlanController {
 
     @Autowired
-    private CategoryService serviceCategoria;
+    private SavingPlanService servicePlanAhorro;
 
-    @GetMapping("/categorias")
-    public String categorias(){
-        return "categorias";
-    }
+   @GetMapping("/ahorros")
+    public String ahorros(){
+       return "ahorros";
+   }
 }

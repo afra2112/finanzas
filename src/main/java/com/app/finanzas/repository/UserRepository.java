@@ -5,6 +5,9 @@ import org.springframework.stereotype.Repository;
 
 import com.app.finanzas.entity.User;
 
+import java.util.Optional;
+
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
+    User findByEmail(String email);
 }

@@ -1,47 +1,50 @@
 package com.app.finanzas.controller;
 
+import com.app.finanzas.dto.CategoryDTO;
 import com.app.finanzas.dto.TransactionDTO;
+import com.app.finanzas.entity.Transaction;
+import com.app.finanzas.repository.TransactionRepository;
+import com.app.finanzas.service.CategoryService;
 import com.app.finanzas.service.TransactionService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
+import java.time.LocalDateTime;
 import java.util.List;
 
-@RestController
-@RequestMapping("/api/Transacciones")
+@Controller
+@RequestMapping("/transacciones")
 public class TransactionController {
 
     @Autowired
     private TransactionService serviceTransaccion;
 
-    @GetMapping("/listarTodo")
-    public ResponseEntity<List<TransactionDTO>> obtenerTodosLosTransaccions(){
-        List<TransactionDTO> entidadesTransaccion = serviceTransaccion.findAll();
-        return ResponseEntity.ok(entidadesTransaccion);
+    @Autowired
+    private CategoryService categoryService;
+
+    @Autowired
+    private TransactionRepository repositoryTransaction;
+
+    @GetMapping("/listar")
+    public String listarTransacciones(HttpSession session, Model model){
+        Long idUsuario = (Long) session.getAttribute("idUser");
+        List<Transaction> listaTransacciones = repositoryTransaction.getTransactionsById(idUsuario);
+        List<CategoryDTO> categorias = categoryService.findAll();
+        model.addAttribute("transaccionDTO", new TransactionDTO());
+        model.addAttribute("transacciones", listaTransacciones);
+        model.addAttribute("nombresCategorias", categorias);
+        return "transacciones";
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<TransactionDTO> obtenerTransaccionPorId(@PathVariable Long id){
-        TransactionDTO dtoTransaccion = serviceTransaccion.findById(id);
-        return ResponseEntity.ok(dtoTransaccion);
-    }
-
-    @PostMapping("/crearTransaccion")
-    public ResponseEntity<TransactionDTO> crearTransaccion(@RequestBody TransactionDTO dtoTransaccion){
-        serviceTransaccion.save(dtoTransaccion);
-        return ResponseEntity.ok(dtoTransaccion);
-    }
-
-    @DeleteMapping("/eliminarTransaccion/{id}")
-    public ResponseEntity<Long> eliminarTransaccion(@PathVariable Long id){
-        serviceTransaccion.delete(id);
-        return ResponseEntity.ok(id);
-    }
-
-    @GetMapping("/Usuarios/{idUsuario}")
-    public ResponseEntity<List<TransactionDTO>> obtenerTransaccionesPorIdUsuario(@PathVariable Long idUsuario) {
-        List<TransactionDTO> transaccionesUsuario = serviceTransaccion.getTransacctionsByUser(idUsuario);
-        return ResponseEntity.ok(transaccionesUsuario);
+    @PostMapping("/crear")
+    public String crearTransaccion(@ModelAttribute("transaccionDTO") TransactionDTO transactionDTO, HttpSession session){
+        LocalDateTime fechaActual = LocalDateTime.now();
+        Long idUser = (Long) session.getAttribute("idUser");
+        transactionDTO.setIdUser(idUser);
+        transactionDTO.setDate(fechaActual);
+        serviceTransaccion.save(transactionDTO);
+        return "redirect:/transacciones/listar";
     }
 }

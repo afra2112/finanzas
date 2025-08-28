@@ -1,5 +1,5 @@
 package com.app.finanzas.config.enums;
 
-public enum FrecuenciaInteresEnum {
+public enum InterestFrecuencyEnum {
     QUINCENAL, MENSUAL, ANUAL
 }

@@ -1,5 +1,5 @@
 package com.app.finanzas.config.enums;
 
-public enum TipoTransaccionEnum {
+public enum TransactionTypeEnum {
     INGRESO, GASTO
 }

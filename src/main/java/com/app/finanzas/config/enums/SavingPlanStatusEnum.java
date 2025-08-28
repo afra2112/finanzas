@@ -1,5 +1,5 @@
 package com.app.finanzas.config.enums;
 
-public enum EstadoPlanAhorroEnum {
+public enum SavingPlanStatusEnum {
     EN_PROGRESO, CUMPLIDO, CANCELADO
 }

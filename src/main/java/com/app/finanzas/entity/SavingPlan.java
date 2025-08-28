@@ -1,7 +1,7 @@
 package com.app.finanzas.entity;
 
 
-import com.app.finanzas.config.enums.EstadoPlanAhorroEnum;
+import com.app.finanzas.config.enums.SavingPlanStatusEnum;
 import jakarta.persistence.*;
 import lombok.Data;
 

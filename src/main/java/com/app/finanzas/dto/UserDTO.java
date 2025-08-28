@@ -1,6 +1,6 @@
 package com.app.finanzas.dto;
 
-import com.app.finanzas.config.enums.RolEnum;
+import com.app.finanzas.config.enums.RoleEnum;
 import lombok.Data;
 
 @Data
@@ -14,7 +14,5 @@ public class UserDTO {
 
     private String password;
 
-    private RolEnum role;
-
-    private Double balance;
+    private RoleEnum role;
 }
