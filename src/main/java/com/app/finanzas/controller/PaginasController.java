@@ -51,12 +51,16 @@ public class PaginasController {
     public String paginaPrincipal(HttpSession session, Model model){
         Long idUsuario = (Long) session.getAttribute("idUser");
         UserDTO usuario = usuarioService.findById(idUsuario);
+        Double totalIngresos = transactionRepository.obtenerTotalIngresos(idUsuario,"INGRESO");
+        Double totalGastos = transactionRepository.obtenerTotalIngresos(idUsuario,"GASTO");
         if(usuario == null){
             return "redirect:/login";
         }
         model.addAttribute("user",usuario);
         List<Transaction> transactions = transactionRepository.getTransactionsById(usuario.getIdUser());
         model.addAttribute("transactions", transactions);
+        model.addAttribute("ingresos", totalIngresos);
+        model.addAttribute("gastos", totalGastos);
         return "principal";
     }
 
