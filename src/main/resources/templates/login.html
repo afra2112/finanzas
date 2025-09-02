@@ -20,7 +20,7 @@
         </div>
 
         <div class="bg-white rounded-xl shadow-lg p-8">
-            <form th:action="@{/login}" th:object="${usuario}" method="POST" class="space-y-6">
+            <form th:action="@{/login}" method="post" class="space-y-6">
                 <div>
                     <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
                         Correo Electrónico
@@ -30,7 +30,7 @@
                             <i class="fas fa-envelope text-gray-400"></i>
                         </div>
                         <input
-                            id="email" type="email" required class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-rose-500" placeholder="tu@email.com" th:field="*{email}"/>
+                            id="email" type="email" required class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-rose-500" placeholder="tu@email.com" name="username"/>
                     </div>
                 </div>
 
@@ -43,11 +43,11 @@
                             <i class="fas fa-lock text-gray-400"></i>
                         </div>
                         <input 
-                            id="contrasena" type="password" required class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-rose-500" placeholder="••••••••" th:field="*{password}"/>
+                            id="contrasena" type="password" required class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-rose-500" placeholder="••••••••" name="password"/>
                     </div>
                 </div>
 
-                <p th:if="${fail}" class="text-red-600">Email o Contrasena Incorrecta</p>
+                <p th:if="${param.error}" class="text-red-600">Email o Contrasena Incorrecta</p>
 
                 <div class="flex items-center justify-between">
                     <div class="flex items-center">

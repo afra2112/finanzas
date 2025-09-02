@@ -2,10 +2,11 @@ package com.app.finanzas.service;
 
 import java.util.List;
 import com.app.finanzas.dto.UserDTO;
+import com.app.finanzas.entity.User;
 
 public interface UserService {
 
-    UserDTO save(UserDTO dto);
+    void save(User usuario);
 
     UserDTO update(Long id, UserDTO dto);
 

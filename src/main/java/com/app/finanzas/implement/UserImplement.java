@@ -2,6 +2,7 @@ package com.app.finanzas.implement;
 
 import com.app.finanzas.service.UserService;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
@@ -20,11 +21,13 @@ public class UserImplement implements UserService {
     @Autowired
     private ModelMapper modelMapper;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Override
-    public UserDTO save(UserDTO dto) {
-        User userEntity = modelMapper.map(dto, User.class);
-        User savedEntity = repository.save(userEntity);
-        return modelMapper.map(savedEntity, UserDTO.class);
+    public void save(User usuario) {
+        usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
+        repository.save(usuario);
     }
 
     @Override
@@ -76,7 +79,7 @@ public class UserImplement implements UserService {
 
     @Override
     public boolean validarLogin(String email, String contrasena) {
-        User user = repository.findByEmail(email);
+        User user = repository.findByemail(email);
         if(contrasena.equals(user.getPassword())){
             return true;
         }

@@ -2,6 +2,8 @@ package com.app.finanzas.entity;
 
 import com.app.finanzas.config.enums.RoleEnum;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Entity
@@ -17,12 +19,14 @@ public class User {
     @Column(name = "name", nullable = false, length = 100)
     private String name;
 
-    @Column(name = "email",nullable = false)
+    @Email
+    @NotBlank
     private String email;
 
-    @Column(name = "password", nullable = false)
+    @NotBlank
     private String password;
 
     @Column(name = "role", nullable = false)
+    @Enumerated(EnumType.STRING)
     private RoleEnum role;
 }

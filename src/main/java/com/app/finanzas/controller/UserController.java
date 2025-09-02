@@ -1,10 +1,14 @@
 package com.app.finanzas.controller;
 
 import com.app.finanzas.dto.UserDTO;
+import com.app.finanzas.entity.User;
 import com.app.finanzas.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,12 +29,6 @@ public class UserController {
     @GetMapping("/{id}")
     public ResponseEntity<UserDTO> obtenerUsuarioPorId(@PathVariable Long id){
         UserDTO dtoUsuario = serviceUsuario.findById(id);
-        return ResponseEntity.ok(dtoUsuario);
-    }
-
-    @PostMapping("/crearUsuario")
-    public ResponseEntity<UserDTO> crearUsuario(@RequestBody UserDTO dtoUsuario){
-        serviceUsuario.save(dtoUsuario);
         return ResponseEntity.ok(dtoUsuario);
     }
 

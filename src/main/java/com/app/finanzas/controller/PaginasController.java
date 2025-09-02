@@ -1,5 +1,6 @@
 package com.app.finanzas.controller;
 
+import com.app.finanzas.config.enums.RoleEnum;
 import com.app.finanzas.dto.UserDTO;
 import com.app.finanzas.entity.Transaction;
 import com.app.finanzas.entity.User;
@@ -8,9 +9,11 @@ import com.app.finanzas.repository.UserRepository;
 import com.app.finanzas.service.UserService;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -66,7 +69,7 @@ public class PaginasController {
 
     @PostMapping("/login")
     public String principal(@ModelAttribute User usuario, HttpSession session, Model model){
-        User usuarioBD = userRepository.findByEmail(usuario.getEmail());
+        User usuarioBD = userRepository.findByemail(usuario.getEmail());
         if(usuarioBD != null && usuarioBD.getPassword().equals(usuario.getPassword())){
             session.setAttribute("idUser", usuarioBD.getIdUser());
             return "redirect:/principal";
@@ -76,6 +79,22 @@ public class PaginasController {
         model.addAttribute("fail", true);
         System.out.println("no ingreso");
         return "login";
+    }
+
+    @GetMapping("/register")
+    public String registroForm(Model model){
+        model.addAttribute("usuario", new User());
+        model.addAttribute("roles", RoleEnum.values());
+        return "register";
+    }
+
+    @PostMapping("/register")
+    public String crearUsuario(@Valid @ModelAttribute User usuario, BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+            return "redirect:/register";
+        }
+        usuarioService.save(usuario);
+        return "redirect:/login";
     }
 
 }
